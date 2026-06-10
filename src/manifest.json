@@ -1,0 +1,20 @@
+{
+  "name": "四川麻将入门教学 · 血战到底",
+  "short_name": "川麻教学",
+  "description": "交互式四川麻将（血战到底）入门教学：认牌、定缺、判胡、算番，零基础闯关。",
+  "start_url": ".",
+  "scope": ".",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f4f6f5",
+  "theme_color": "#0f5132",
+  "lang": "zh-CN",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

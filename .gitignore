@@ -1,0 +1,16 @@
+# 依赖与构建产物（本项目暂无，预留）
+node_modules/
+dist/
+
+# 体积较大的克隆参考仓库（仅本地参考，不提交/不部署）
+reference/MahjongHuTingFan/
+reference/okbeng03-mahjong-full/
+reference/qipai/
+
+# 生成的汇报 PPT
+*.pptx
+
+# 系统 / 编辑器
+.DS_Store
+Thumbs.db
+*.log
