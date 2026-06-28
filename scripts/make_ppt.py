@@ -198,38 +198,37 @@ text(s, 0.9, 1.7, 11.5, 2.0, [
     [("交互式四川麻将", 46, WHITE, True)],
     [("血战到底 · 入门教学", 30, RGBColor(0xCF, 0xE3, 0xCF), True)],
 ], anchor=MSO_ANCHOR.TOP)
-text(s, 0.95, 3.7, 11, 0.6, [[("纯前端 · 零后端 · 零框架 · PWA 可离线 · 自研规则引擎", 16, RGBColor(0xD6, 0xE7, 0xDC), False)]])
+text(s, 0.95, 3.7, 11, 0.6, [[("纯前端 · 零后端", 16, RGBColor(0xD6, 0xE7, 0xDC), False)]])
 # 牌面装饰
 demo = [("一万", WAN), ("三条", TIAO), ("五筒", TONG), ("七万", WAN), ("九条", TIAO)]
 for i, (lb, c) in enumerate(demo):
     tile(s, 0.95 + i * 0.8, 4.5, lb, c, w=0.66, h=0.9)
-text(s, 0.95, 6.0, 11, 0.5, [[("项目汇报", 14, RGBColor(0xCF, 0xE3, 0xCF), False)]])
+text(s, 0.95, 6.0, 11, 0.5, [[("2300012902-舒俊喜", 14, RGBColor(0xCF, 0xE3, 0xCF), False)]])
 
 # ================= 2. 选题背景 =================
 s = slide()
-header(s, 1, "选题背景：为什么做这个", "实用 + 少有人做好 + 纯前端可独立完成 + 有算法亮点")
+header(s, 1, "选题背景：为什么做这个")
 bullets(s, [
     ("玩家基数大、但新手最怕“不会算、不敢上桌”。", 0, "真实痛点"),
     ("市面多为纯文字攻略或直接能打的成品游戏；“手把手交互式教规则”几乎是空白。", 0, "差异化"),
     ("牌面渲染、规则演示都不需要后端，可独立完成、好部署。", 0, "纯前端可做"),
-    ("胡牌判定 / 听牌 / 番型算分是漂亮的算法练习，能让项目脱颖而出。", 0, "技术含金量"),
-    ("规则锁定最普遍认同的“成都血战到底”，番数采用相加制。", 0, "规则蓝本"),
+    ("规则锁定最普遍认同的“血战到底”，番数采用相加制。", 0, "规则蓝本"),
 ])
 
 # ================= 3. 项目概览 =================
 s = slide()
 header(s, 2, "项目概览")
 bullets(s, [
-    ("原生 HTML + CSS + JavaScript（ES Module），零框架、零依赖。", 0, "形态"),
+    ("原生 HTML + CSS + JavaScript", 0, "形态"),
     ("用 8 关闯关，从认牌、定缺到判胡、算番，零基础学会川麻。", 0, "目标"),
     ("胡牌结构 4 面子 + 1 将 / 七对；必须缺一门；得分 = 底分 × 2^番数。", 0, "规则"),
     ("localStorage 存进度；Service Worker 离线；深色 / 浅色切换。", 0, "工程化"),
-    ("引擎自测 19 项 + 生成器 1204 项 + 浏览器自动化全部通过。", 0, "质量"),
 ], t=1.55, gap=12)
+text(s, 0.7, 5.0, 11, 0.5, [[("链接：", 16, INK, False)]])
 
 # ================= 4. 系统架构 =================
 s = slide()
-header(s, 3, "系统架构：清晰分层", "下面每一层各挑一个最具代表性的代码来精读")
+header(s, 3, "系统架构：清晰分层")
 layers = [
     ("应用层  app.js", "导航 · 进度 · 主题 · Service Worker 注册", BRAND),
     ("关卡层  lessons/ + quiz.js", "8 个关卡 + 通用 createQuiz 闯关框架", BRAND2),
@@ -245,39 +244,9 @@ for name, desc, col in layers:
     text(s, 6.4, y + 0.08, 5.5, 0.9, [[(desc, 13, DIM, False)]], anchor=MSO_ANCHOR.MIDDLE)
     y += 1.12
 
-# ================= 5. 规则引擎 =================
+# ================= 5. 八关教学内容 =================
 s = slide()
-header(s, 4, "技术亮点①：规则引擎", "纯函数、可单测、与教学解耦")
-bullets(s, [
-    ("先抽一对将，递归把剩余牌按花色拆成顺子/刻子；任一拆法成功即胡。", 0, "胡牌判定 win.js"),
-    ("七对 / 龙七对单独特判；叠加“缺一门”约束（花色 ≤ 2）。", 1),
-    ("对 13 张逐一补牌调用胡牌判定，收集所有可胡的牌。", 0, "听牌计算 ting.js"),
-    ("原子番型相加：对对胡(1) 清一色(2) 七对(2) 龙(+1) 将对(+3) …", 0, "番型算分 score.js"),
-    ("自动还原清对(3) 清七对(4) 清龙七对(5)；附加自摸/杠上花/根。", 1),
-    ("牌编码：万 1-9 / 筒 11-19 / 条 21-29；手牌用长度 30 的计数数组。", 0, "数据结构"),
-], t=1.55, gap=9)
-
-# ================= 6. createQuiz 框架 =================
-s = slide()
-header(s, 5, "技术亮点②：通用关卡框架 createQuiz", "8 关共用一套样板，逻辑收敛、便于汇报")
-text(s, 0.7, 1.5, 12, 0.5, [[("每关只写 render(ctx) 出一轮题；判对调 ctx.correct，判错调 ctx.wrong。", 15, INK, False)]])
-boxes = [
-    ("render(ctx)", "每关只管“出一轮题”，渲染到 ctx.stage", BRAND2),
-    ("ctx.correct(msg)", "计数 + 立即清空舞台(防连点) + 到点过关，否则短停顿后下一轮", BRAND),
-    ("ctx.wrong(msg)", "只提示，保留题目可重试", ACCENT),
-]
-y = 2.25
-for name, desc, col in boxes:
-    box(s, 1.2, y, 10.9, 1.05, fill=WHITE, line=col, line_w=1.5, shape=MSO_SHAPE.ROUNDED_RECTANGLE)
-    text(s, 1.5, y + 0.06, 3.6, 0.95, [[(name, 17, col, True)]], anchor=MSO_ANCHOR.MIDDLE)
-    text(s, 5.2, y + 0.06, 6.7, 0.95, [[(desc, 13, DIM, False)]], anchor=MSO_ANCHOR.MIDDLE)
-    y += 1.2
-text(s, 1.2, y + 0.05, 10.9, 0.6,
-     [[("收益：消除 8 处重复样板；“防过渡期重复点击”这一 bug 在框架内一次性解决。", 14, BRAND, True)]])
-
-# ================= 7. 八关教学内容 =================
-s = slide()
-header(s, 6, "教学内容：8 关闯关")
+header(s, 4, "教学内容：8 关闯关")
 lessons = [
     ("1 认牌", "万/条/筒、108 张、无字牌"),
     ("2 定缺", "为何缺一门、花猪惩罚"),
@@ -297,36 +266,30 @@ for i, (t1, t2) in enumerate(lessons):
     text(s, x + 0.25, y + 0.12, 5.2, 0.5, [[(t1, 16, BRAND, True)]])
     text(s, x + 0.25, y + 0.6, 5.2, 0.5, [[(t2, 12, DIM, False)]])
 
-# ================= 8. 体验与工程化 =================
-s = slide()
-header(s, 7, "交互体验与工程化")
-bullets(s, [
-    ("讲解 → 练习 → 即时反馈 → 过关，进度自动保存、可自由跳关。", 0, "闯关闭环"),
-    ("Unicode 牌面、三门配色；移动端优先、响应式（宽屏侧栏 / 窄屏顶部导航）。", 0, "视觉"),
-    ("深色 / 浅色一键切换，跟随系统并记忆选择。", 0, "主题"),
-    ("Service Worker 网络优先 + 离线回退；manifest 可安装到桌面。", 0, "PWA"),
-    ("所有相对路径，直接推 GitHub Pages 即可上线。", 0, "部署"),
-])
+# ================= 5. 项目结构（src/） =================
+code_slide(5, "项目结构：src/ 目录一览", "开始读代码前，先看清各文件的分工",
+"""src/
+├── index.html          入口（空壳）
+├── manifest.json       PWA 清单
+├── sw.js               Service Worker（离线）
+├── icon.svg            应用图标
+├── css/style.css       样式（主题/深色/牌面）
+├── data/tiles.js       108 张牌 + Unicode
+└── js/
+    ├── app.js          入口：导航/进度/主题
+    ├── engine/         引擎：hand win ting score
+    ├── ui/             视图：dom tile feedback
+    └── lessons/        关卡：registry quiz gen
+        └── lesson-1..8 8 个关卡""",
+[("入口三件套", "index.html 空壳 + app.js 启动；manifest/sw 提供 PWA。"),
+ ("引擎 engine/", "纯逻辑：胡牌/听牌/算番，可单测、与界面解耦。"),
+ ("视图 ui/ + 关卡 lessons/", "ui 负责“画”，lessons 用 quiz 框架“出题”。"),
+ ("数据 data/", "牌的编码与 Unicode 牌面，是全项目的地基。")], size=10)
 
-# ================= 9. 质量保障 =================
-s = slide()
-header(s, 8, "质量保障")
-stats = [("19", "引擎自测项\n胡牌/听牌/番型"), ("1204", "生成器断言\n牌型生成正确性"),
-         ("8 / 8", "关卡自动化\n引擎驱动全通过"), ("0", "console 报错\n渲染零错误")]
-for i, (num, desc) in enumerate(stats):
-    x = 0.85 + i * 3.05
-    box(s, x, 1.7, 2.8, 1.9, fill=PANEL, line=LINE, shape=MSO_SHAPE.ROUNDED_RECTANGLE)
-    text(s, x, 1.95, 2.8, 0.9, [[(num, 40, BRAND, True)]], align=PP_ALIGN.CENTER)
-    text(s, x, 2.95, 2.8, 0.6, [[(desc.replace("\n", "  "), 12, DIM, False)]], align=PP_ALIGN.CENTER)
-bullets(s, [
-    ("`node tests/engine.test.mjs`、`node tests/gen.test.mjs` 全绿。", 0, "可复跑"),
-    ("浏览器用引擎算出正确答案自动答题，每关 ok、0 错、0 漏。", 0, "端到端"),
-    ("修复了“过渡期重复点击计数虚高”“SW 缓存导致更新不生效”两处 bug。", 0, "已知问题"),
-], t=4.0, gap=9)
 
 # ================= 代码导读：跟随架构，每层选一个代表 =================
 
-code_slide(9, "代码导读① · 数据层：data/tiles.js", "代表：用一个整数表示一张牌（全项目的地基）",
+code_slide(6, "代码导读① · 数据层：data/tiles.js", "代表：用一个整数表示一张牌（全项目的地基）",
 """// 花色基数：万=0 / 筒=10 / 条=20；id = base + 点数
 export const SUITS = [
   { key:'wan',  name:'万', base:0  },
@@ -347,7 +310,7 @@ export function tileInfo(id) {
  ("÷10 取整得花色", "一步从 id 还原出花色基数 0/10/20。"),
  ("tileInfo 反查", "把数字翻译成“三筒”等可读信息供界面用。")])
 
-code_slide(10, "代码导读② · 引擎层：engine/win.js", "代表：胡牌判定（递归+回溯，引擎最难也最亮）",
+code_slide(7, "代码导读② · 引擎层：engine/win.js", "代表：胡牌判定（递归+回溯，引擎最难也最亮）",
 """// 剩余牌能否全拆成面子(顺子/刻子)
 function canAllMelds(counts) {
   let i = 0;
@@ -381,7 +344,7 @@ export function isStandardWin(tiles) {
  ("总用最小未用牌 i", "必须消耗它：要么做刻子，要么当顺子头。"),
  ("递归 + 回溯", "试一种拆法失败就把牌放回(counts 复原)再换。")], size=10)
 
-code_slide(11, "代码导读③ · 视图层：ui/dom.js", "代表：el() 一行造出带 class/事件/子节点的元素",
+code_slide(8, "代码导读③ · 视图层：ui/dom.js", "代表：el() 一行造出带 class/事件/子节点的元素",
 """// 用法：el('button.choice-btn', { onClick }, '文本')
 export function el(tag, props, ...children) {
   let cls = [];
@@ -400,7 +363,7 @@ export function el(tag, props, ...children) {
  ("onXxx → 事件", "以 on 开头的属性自动转成 addEventListener。"),
  ("children → append", "字符串自动转成文本节点挂进去。")])
 
-code_slide(12, "代码导读④ · 关卡层：lessons/lesson-4-win.js", "代表：一关如何用 createQuiz 出题 + 调引擎判分",
+code_slide(9, "代码导读④ · 关卡层：lessons/lesson-4-win.js", "代表：一关如何用 createQuiz 出题 + 调引擎判分",
 """export default {
   id: 'win', no: 4, title: '怎样算胡',
   build(practiceEl, api) {
@@ -425,7 +388,7 @@ code_slide(12, "代码导读④ · 关卡层：lessons/lesson-4-win.js", "代表
  ("直接问引擎要答案", "canHu(tiles) 给出标准答案，UI 不关心怎么算。"),
  ("点击对比答案", "选对调 ctx.correct，选错调 ctx.wrong。")], size=10)
 
-code_slide(13, "代码导读⑤ · 应用层：app.js", "代表：把“画布+接口”交给关卡，并管进度/离线",
+code_slide(10, "代码导读⑤ · 应用层：app.js", "代表：把“画布+接口”交给关卡，并管进度/离线",
 """function buildLessonSection() {
   const lesson = LESSONS[currentIndex];
   const practiceEl = el('div.practice');
@@ -450,6 +413,94 @@ if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
  ("api 是关卡契约", "关卡只认 feedback / clearFeedback / pass。"),
  ("localStorage 持久化", "存“已通关 id 集合”，关掉网页也还在。"),
  ("Service Worker", "首访缓存资源，断网也能用(PWA)。")], size=11)
+
+
+# ================= 技术亮点：亮点介绍 + 结合代码解读 =================
+
+code_slide(11, "技术亮点① · 通用关卡框架 createQuiz", "控制反转：框架管流程，关卡只出题",
+"""export function createQuiz(practiceEl, api, { target, delay = 500, render }) {
+  let done = 0;                          // 闭包状态：已答对数
+  const stage = el('div.quiz-stage');
+  practiceEl.append(stage);
+
+  function nextRound() {                  // 出下一轮题
+    api.clearFeedback(); clear(stage);
+    render(ctx);                          // 让具体关卡渲染一轮
+  }
+  const ctx = {
+    stage,
+    correct(msg) {
+      done += 1;
+      clear(stage);                       // 立即清空 → 防连点
+      api.feedback(true, msg);
+      if (done >= target) api.pass();     // 够数 → 过关
+      else setTimeout(nextRound, delay);  // 否则停顿后下一轮
+    },
+    wrong(msg) { api.feedback(false, msg); },
+  };
+  nextRound();
+}""",
+[("控制反转", "框架管计数/过关/停顿，关卡只实现 render(ctx)。"),
+ ("闭包记状态", "done 被内部函数记住，每关独立、不污染全局。"),
+ ("防连点", "答对先 clear(stage) 移除按钮，过渡期无可点。"),
+ ("价值", "8 关共用一套样板；新增一关只写 render，逻辑收敛。")], size=10)
+
+code_slide(12, "技术亮点② · 番型「相加制」", "用 N 个原子番型，自动覆盖所有组合",
+"""// 每识别一个“原子番型”，就加一份 { 名称, 番数 }
+if (isPengPengHu(tiles)) detail.push({ name:'对对胡', fan:1 });
+if (isQingYiSe(tiles))   detail.push({ name:'清一色', fan:2 });
+// …七对(2)、龙(+1)、将对(+3)、断幺九(1) 同理累加
+
+const fans  = detail.reduce((s, d) => s + d.fan, 0);  // 番数相加
+const score = base * 2 ** fans;                       // 底分 × 2^番数""",
+[("原子化、互不耦合", "每个番型只负责加自己那一份，彼此独立。"),
+ ("组合自动成立", "清七对 = 七对(2)+清一色(2)，无需单独写一种。"),
+ ("reduce 求和 → 指数计分", "番数相加后 2**fans，每多 1 番收益翻倍。"),
+ ("价值", "N 个原子覆盖 2^N 种组合；加新番型只加一行，易维护。")])
+
+code_slide(13, "技术亮点③ · 深色模式：一行换肤", "CSS 变量 + data-theme，改一个属性整页变色",
+"""/* 颜色集中成变量；深色块用“同名变量”覆盖 */
+:root             { --bg:#f4f6f5; --brand:#0f5132; }  /* 浅色 */
+[data-theme=dark] { --bg:#11140f; --brand:#2ea96a; }  /* 深色 */
+.lesson { background: var(--bg); }   /* 处处只引用 var() */
+
+// app.js：给 <html> 加/去一个属性即可整页换肤
+document.documentElement.setAttribute('data-theme', 'dark');
+localStorage.setItem('scmj.theme', 'dark');   // 记住选择""",
+[("颜色集中为变量", "全站样式只引用 var(--x)，不写死颜色。"),
+ ("同名覆盖", "[data-theme=dark] 与 :root 同专一性，靠书写顺序生效。"),
+ ("一处开关 + 记忆", "切换 <html> 的 data-theme，并存 localStorage。"),
+ ("价值", "改一个属性，整页换肤，其余样式零改动。")])
+
+code_slide(14, "技术亮点④ · PWA 离线：网络优先", "在线永远最新，断网仍可用",
+"""// sw.js：网络优先，失败回退缓存
+self.addEventListener('fetch', (e) => {
+  e.respondWith(
+    fetch(e.request)                        // 先走网络（拿最新）
+      .then((res) => { /* 顺便更新缓存 */ return res; })
+      .catch(() => caches.match(e.request)) // 失败 → 用缓存（离线）
+  );
+});
+
+// app.js：特性检测后再注册，老浏览器不报错
+if ('serviceWorker' in navigator)
+  navigator.serviceWorker.register('./sw.js');""",
+[("预缓存应用外壳", "install 时把 html/css/js 先缓存起来。"),
+ ("网络优先", "在线总拿最新，改了代码能立刻看到。"),
+ ("回退缓存", "断网/弱网时用缓存，实现离线可用。"),
+ ("价值", "兼顾“更新及时”与“离线可用”；修了早期缓存优先看不到更新的坑。")])
+
+
+# ================= AI 使用经验 =================
+s = slide()
+header(s, 15, "AI 在本项目的使用经验", "全流程协作：选题 → 开发 → 测试 → 文档 → 部署")
+bullets(s, [
+    ("用 AI 头脑风暴并敲定选题；联网检索、比对、整理权威「血战到底」规则。", 0, "选题与资料"),
+    ("AI 协助完成分层架构与全部代码：胡牌/听牌/算番引擎、createQuiz 框架、8 个关卡。", 0, "设计与开发"),
+    ("AI 写自测(引擎 19 + 生成器 1204)并做浏览器自动化，主动发现并修复重复点击、SW 缓存等隐蔽 bug。", 0, "测试与纠错"),
+    ("AI 自动生成汇报 PPT 与零基础入门导览，并逐条排查 CloudBase 部署报错。", 0, "文档与部署"),
+    ("AI 极大加速开发与文档、能主动测试纠错；关键决策仍需人把关——“人定方向、AI 落地、人审校”最有效。", 0, "经验总结"),
+], t=1.6, gap=12)
 
 
 # ================= 10. 总结 =================

@@ -3,8 +3,6 @@
 一个纯前端、零后端、零框架的「四川麻将（血战到底）」交互式入门教学网站。
 用 8 个闯关，从认牌、定缺，到判胡、算番，零基础也能学会川麻。
 
-> 想读懂 / 学习本项目代码？看零基础友好的 [docs/GUIDE.md](docs/GUIDE.md)（含 JS 语法速成 + 逐文件源码走读 + 胡牌算法图解）。
-
 ## 功能
 
 - 8 关闯关式教学，进度自动保存（localStorage）：
@@ -51,9 +49,6 @@ sichuan-mahjong-tutor/
 │       └── lessons/          registry.js / gen.js / quiz.js / lesson-1..8
 ├── tests/                    engine.test.mjs / gen.test.mjs
 ├── scripts/                  make_ppt.py（生成汇报 PPT）
-├── docs/
-│   ├── rules.md              标准规则蓝本
-│   └── sources/              抓取的原始规则资料
 └── reference/                算法参考（开源仓库克隆 + 索引）
 ```
 
