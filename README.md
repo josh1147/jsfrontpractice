@@ -57,9 +57,3 @@ sichuan-mahjong-tutor/
 └── reference/                算法参考（开源仓库克隆 + 索引）
 ```
 
-
-## 备注
-
-- git 默认走代理 `127.0.0.1:7890`；代理未开时用
-  `git -c http.proxy= -c https.proxy= clone ...` 绕过可直连 GitHub，
-  三个参考仓库已据此完整克隆到 `reference/`。
